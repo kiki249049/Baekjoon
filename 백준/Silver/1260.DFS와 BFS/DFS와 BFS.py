@@ -1,3 +1,5 @@
+from collections import deque
+import sys
 def dfs(n) :
     stack=[]
     stack.append(n)
@@ -11,10 +13,10 @@ def dfs(n) :
                 stack.append(i)
 
 def bfs(n) :
-    queue=[]
+    queue=deque()
     queue.append(n)
     while queue :
-        t=queue.pop(0)
+        t=queue.popleft()
         if not visited[t] :
             visited[t] = 1
             bfs_answer.append(t)
@@ -26,8 +28,8 @@ def bfs(n) :
 
 
 
-V,E,n = map(int,input().split())
-mat=[list(map(int,input().split())) for _ in range(E)]
+V,E,n = map(int,sys.stdin.readline().split())
+mat=[list(map(int,sys.stdin.readline().rstrip().split())) for _ in range(E)]
 G=[[0]*(V+1) for _ in range(V+1)]
 visited=[0]*(V+1)
 dfs_answer=[]

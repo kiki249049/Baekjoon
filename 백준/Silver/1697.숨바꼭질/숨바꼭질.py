@@ -10,8 +10,8 @@ def bfs() :
             break
         for i in [t-1,t+1,2*t]:
             if 0<=i<=100000 and not visited[i]:
-                visited[i] = visited[t] + 1
                 queue.append(i)
+                visited[i] = visited[t] + 1
 
 
 

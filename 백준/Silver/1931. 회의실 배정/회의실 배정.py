@@ -1,18 +1,16 @@
 import sys
-
 input = sys.stdin.readline
 
-N=int(input())
-dp=1
-conference=[]
-for i in range(N) :
-    conference.append(list(map(int,input().split())))
-conference.sort()
-end=conference[0][1]
-for i in range(1,N) :
-    if conference[i][0] >= end :
-        end = conference[i][1]
-        dp += 1
-    elif conference[i][1] <= end :
-        end = conference[i][1]
-print(dp)
+arr = []
+for _ in range(int(input())):
+    start, end = map(int, input().split())
+    arr.append((start, end))
+arr.sort(key=lambda x: x[0]) # x기준으로 정렬
+arr.sort(key=lambda x: x[1]) # y기준으로 정렬
+
+end = cnt = 0
+for t in arr:
+    if t[0] >= end:
+        end = t[1]
+        cnt += 1
+print(cnt)

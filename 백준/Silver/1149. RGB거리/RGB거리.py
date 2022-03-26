@@ -1,3 +1,5 @@
+import sys
+input = sys.stdin.readline
 N = int(input())
 cost = [list(map(int,input().split())) for _ in range(N)]
 dp0=[0]*N

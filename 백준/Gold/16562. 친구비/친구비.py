@@ -9,22 +9,22 @@ def dsearch(n) :
         t = stack.pop()
         visited[t] = 1
         group.append(t)
-        for i in range(1,N+1):
-            if G[t][i] == 1 and not visited[i] :
-                stack.append(i)
+        for i in range(len(G[t])):
+            if not visited[G[t][i]] :
+                stack.append(G[t][i])
     bg_group.append(group)
 
 
 N,M,C = map(int,input().split())
 cost = list(map(int,input().split()))
 visited = [0] * (N+1)
-G = [[0]*(N+1) for _ in range(N+1)]
+G = [[] for _ in range(N+1)]
 cnt = 0
 bg_group = []
 for i in range(M) :
     v,w = map(int,input().split())
-    G[v][w] = 1
-    G[w][v] = 1
+    G[v].append(w)
+    G[w].append(v)
 for i in range(1,N+1) :
     if not visited[i] :
         dsearch(i)

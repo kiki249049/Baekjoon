@@ -1,11 +1,16 @@
 import sys
-from itertools import combinations
 input = sys.stdin.readline
 
+def nCr(n,r,s) :
+    if r == 0 :
+        print(*comb)
+    else :
+        for i in range(s,n-r+1) :
+            comb[M-r]=A[i]
+            nCr(n,r-1,i+1)
+
+
 N,M = map(int,input().split())
-numbers=[]
-for i in range(1,N+1):
-    numbers.append(i)
-com = list(combinations(numbers,M))
-for i in com :
-    print(*i)
+A = [i for i in range(1,N+1)]
+comb = [0]*M
+nCr(N,M,0)

@@ -1,12 +1,15 @@
-A = input()
-N = len(A)
-B = input()
-M = len(B)
-memo = [[0]*(M+1) for _ in range(N+1)]
-for i in range(1,N+1) :
-    for k in range(1,M+1) :
-        if A[i-1] != B[k-1] :
-            memo[i][k] = max(memo[i-1][k],memo[i][k-1])
-        else :
-            memo[i][k] = memo[i-1][k-1]+1
-print(memo[len(A)][len(B)])
+import sys
+read = sys.stdin.readline
+
+word1, word2 = read().strip(), read().strip()
+l1, l2 = len(word1), len(word2)
+cache = [0] * l2
+
+for i in range(l1):
+    cnt = 0
+    for j in range(l2):
+        if cnt < cache[j]:
+            cnt = cache[j]
+        elif word1[i] == word2[j]:
+            cache[j] = cnt + 1
+print(max(cache))

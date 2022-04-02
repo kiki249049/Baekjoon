@@ -3,12 +3,6 @@ from itertools import combinations
 from copy import deepcopy
 input = sys.stdin.readline
 
-def chi_dist(a,b) : # a는 치킨집 좌표 b는 집 좌표
-    x1,y1 = a
-    x2,y2 = b
-    return abs(x1-x2)+abs(y1-y2)
-
-
 N,M = map(int,input().split())
 area = [list(map(int,input().split())) for _ in range(N)] # 맵을 받고
 chicken=[]
@@ -24,7 +18,8 @@ for C in combinations(chicken,M) : # C는 좌표 조합시킨것.
         for j in range(N) :
             for k in range(N) :
                 if area[j][k] == 1: # 집이 발견되면
-                    distance = chi_dist(i,(j,k)) # 거리를찾고
+                    x,y = i
+                    distance = abs(x-j)+abs(y-k) # 거리를찾고
                     if temp[j][k] > distance : # 그 거리가 최소치킨거리보다 작으면 갱신
                         temp[j][k] = distance
     for i in range(N) :

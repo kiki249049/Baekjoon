@@ -1,36 +1,32 @@
 import sys
-from itertools import permutations
 input = sys.stdin.readline
 
-def oper(num1,num2,op) :
-    if op == 0 : # 덧셈
-        return num1 + num2
-    elif op == 1 : # 뺄셈
-        return num1 - num2
-    elif op == 2 : # 곱셈
-        return num1*num2
-    else : # 나눗셈
-        if num1 < 0 :
-            return -(-num1//num2)
-        else :
-            return num1//num2
+
+def dfs(idx,val,pl,mi,mu,div) :
+    global max_val,min_val
+    if idx == N :
+        if val > max_val :
+            max_val = val
+        if val < min_val :
+            min_val = val
+    else :
+        if pl > 0 :
+            dfs(idx+1,val+num[idx],pl-1,mi,mu,div)
+        if mi > 0 :
+            dfs(idx + 1, val - num[idx], pl, mi-1, mu, div)
+        if mu > 0 :
+            dfs(idx + 1, val * num[idx], pl , mi, mu-1, div)
+        if div > 0 :
+            if val > 0 :
+                dfs(idx + 1, val // num[idx], pl , mi, mu, div-1)
+            else :
+                dfs(idx + 1, -(-val // num[idx]), pl , mi, mu, div-1)
 
 N = int(input())
-numbers = list(map(int,input().split()))
-operator = list(map(int,input().split()))
-operator_lst = []
+num = list(map(int,input().split()))
+op = list(map(int,input().split()))
+val = 0
 max_val = -int(1e9)
 min_val = int(1e9)
-for idx,value in enumerate(operator) :
-    for i in range(value) :
-        operator_lst.append(idx)
-go = set(permutations(operator_lst))
-for seq in go :
-    val = numbers[0]
-    for i in range(len(seq)):
-        val=oper(val,numbers[i+1],seq[i])
-    if val > max_val :
-        max_val = val
-    if val < min_val :
-        min_val = val
+dfs(1,num[0],op[0],op[1],op[2],op[3])
 print(max_val,min_val,sep='\n')
